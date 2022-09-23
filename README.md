@@ -4,6 +4,8 @@
 - [ ] Plex
 - [ ] Portainer
 - [ ] Minecraft servre vanilla last version
+- [ ] Traefik
+- [ ] Mattermost
 
 ## App to be installed 
 - [ ] Cockpit
