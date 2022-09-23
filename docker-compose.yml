@@ -1,0 +1,69 @@
+version: '3.3'
+services:
+
+  # minecraft server
+  minecraft-server:
+    image: itzg/minecraft-server
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+      MEMORY: 4G
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    volumes:
+      - minecraftserver_vol:/data
+
+  # traefik reverse proxy to be configured later
+  traefik:
+    image: traefik:latest
+    ports:
+      - "8080:8080"
+      - "9666:80"
+    volumes:
+      - traefik_vol:/etc/traefik/
+      - /var/run/docker.sock:/var/run/docker.sock
+  
+  # portainer might not be needed with proxmox
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - "8000:8000"
+      - "9443:9443"
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+  # plex server
+  plex-server:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    ports:
+      - 32400:32400
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - PLEX_CLAIM= #optional
+    volumes:
+      - plex_vol:/config
+      - plex_vol:/tv
+      - plex_vol:/movies
+      - plex_vol:/music
+      - plex_vol:/videos
+    restart: unless-stopped
+
+  # Chat
+  mattermost:
+    image: mattermost/mattermost-preview 
+    ports:
+      - 8065:8065
+
+
+volumes:
+  plex_vol:
+  minecraftserver_vol:
+  portainer_data:
+  traefik_vol:
