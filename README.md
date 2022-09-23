@@ -7,7 +7,7 @@
 - [ ] Traefik
 - [ ] Mattermost
 
-## App to be installed 
+## App to be installed (not docker)
 - [ ] Cockpit
   - [ ] cockpit-machines
   - [ ] cockpit-podman
