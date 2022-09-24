@@ -1,13 +1,14 @@
 #!/bin/bash
 
 echo "Installazione di Cockpit!"
-
 var=''
 pvar=''
 plugins_arr=(cockpit-machines cockpit-podman podman cockpit-sensors lm-sensors cockpit-packagekit cockpit-networkmanager cockpit-storaged cockpit-certificates)
 
 echo "Il modulo base di cockpit sta per essere installato"
 apt install cockpit -y
+systemctl enable --now cockpit.socket
+sudo usermod -aG sudo "$USER"
 
 until [ "$var" == S ] || [ "$var" == N ]
 do
