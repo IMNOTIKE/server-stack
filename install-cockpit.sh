@@ -10,7 +10,7 @@ apt install cockpit -y
 systemctl enable --now cockpit.socket
 sudo usermod -aG sudo "$USER"
 
-until [ "$var" == S ] || [ "$var" == N ]
+until [ "$var" == S ] || [ "$var" == N ] || [ "$var" == s ] || [ "$var" == n ]
 do
   read -r -p "Vuoi visualizzare i plugin aggiuntivi?" var
 
