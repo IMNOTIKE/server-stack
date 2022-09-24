@@ -6,7 +6,7 @@ pvar=''
 ORANGE='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m'
-plugins_arr=(cockpit-machines cockpit-podman podman cockpit-sensors lm-sensors cockpit-packagekit cockpit-networkmanager cockpit-storaged cockpit-certificates)
+plugins_arr=(cockpit-machines cockpit-podman podman cockpit-sensors lm-sensors cockpit-packagekit cockpit-networkmanager cockpit-storaged cockpit-certificates cockpit-docker)
 
 echo -e "Il modulo base di ${ORANGE}cockpit${NC} sta per essere installato"
 apt install cockpit -y
@@ -27,8 +27,20 @@ do
         read -r -p "Installare $(echo -e "${ORANGE}$str${NC}")? " pvar
         if [ "$pvar" == S ] || [ "$pvar" == s ] 
           then 
-            apt install "$str" -y
-            clear
+            if [ "$str" == cockpit-docker ]
+              then 
+                git clone https://github.com/mrevjd/cockpit-docker
+                cd ./cockpit-docker
+                chmod +x ./install.sh
+                ./install.sh
+                echo  -e "Il modulo ${ORANGE}$str${NC} ${RED}è stato installato"
+                sleep o.5s
+                clear
+            else
+              apt install "$str" -y
+              echo  -e "Il modulo ${ORANGE}$str${NC} ${RED}è stato installato"
+              sleep 0.5s
+              clear
         elif [ "$pvar" == N ] || [ "$pvar" == n ]
           then
             clear
