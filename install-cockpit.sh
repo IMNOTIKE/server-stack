@@ -16,7 +16,7 @@ clear
 
 until [ "$var" == S ] || [ "$var" == N ] || [ "$var" == s ] || [ "$var" == n ]
 do
-  read -r -p "$(echo -e "${ORANGE}Vuoi visualizzare i plugin aggiuntivi?") " var
+  read -r -p "$(echo -e "Vuoi visualizzare i ${ORANGE}plugin aggiuntivi${NC}?") " var
 
   if [ "$var" == S ] || [ "$var" == s ]
     then
