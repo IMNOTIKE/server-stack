@@ -1,13 +1,29 @@
 version: '3.3'
 services:
 
-  # minecraft server
+  # minecraft server vanilla latest version
   minecraft-server:
     image: itzg/minecraft-server
     ports:
       - "25565:25565"
     environment:
       EULA: "TRUE"
+      MEMORY: 4G
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    volumes:
+      - minecraftserver_vol:/data
+  
+  # minecraft server 1.12.2 forge
+   minecraft-server:
+    image: itzg/minecraft-server
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+      TYPE: FORGE
+      VERSION: 1.12.2
       MEMORY: 4G
     stdin_open: true
     tty: true
